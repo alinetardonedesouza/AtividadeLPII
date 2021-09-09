@@ -4,15 +4,9 @@ public enum EnumCor {
     AZUL,
     AMARELO,
     VERDE,
-    LARANJA,
-    ROXO,
+    LILAS,
     ROSA,
     PRETO,
     BRANCO,
-    LILÁS,
-    MARROM,
-    CINZA,
-    ESTAMPADO,
     OUTROS
- 
 }

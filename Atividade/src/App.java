@@ -21,13 +21,13 @@ public class App {
         System.out.println("Digite o nome do produto: ");
         prod.setLocal(System.console().readLine().intern());
 
-        System.out.println("Digite o tipo do produto: ");
+        System.out.println("Digite o tipo do produto (vestido, blusa, calça, etc.): ");
         prod.setTipo(System.console().readLine().intern());
 
         System.out.println("Digite a marca do produto:");
         prod.setMarca(System.console().readLine().intern());
 
-        System.out.println("Digite a caracteristica do produto:");
+        System.out.println("Digite a caracteristica do produto (descrição detalhada da peça):");
         prod.setCaracteristicas(System.console().readLine().intern());
 
         String numero;
@@ -35,14 +35,14 @@ public class App {
         System.out.println("Digite o tamanho do produto:");
         listaTamanho();
         numero = System.console().readLine().intern();
-        }while(!numero.matches("[0-9]*"));
+        }while(!numero.matches("[0-6]"));
         prod.setTamanho(Integer.parseInt(numero));
 
         do{
         System.out.println("Digite a cor do produto:");
         listaCores();
         numero = System.console().readLine().intern();
-        }while(!numero.matches("[0-9]*"));
+        }while(!numero.matches("[0-9]"));
         prod.setCor(Integer.parseInt(numero));
 
         do{
@@ -212,7 +212,7 @@ public class App {
         BufferedWriter bw = new BufferedWriter(fw);
         PrintWriter out = new PrintWriter(bw);
         // cria o arquivo txt separando as informações do produto por "|"
-        String produtoString = Integer.toHexString(prod.getCodigo()) + ";" + prod.getDataEntrada() + ";"
+        String produtoString = Integer.toString(prod.getCodigo()) + ";" + prod.getDataEntrada() + ";"
                 + prod.getLocal() + ";" + prod.getTipo() + ";" + prod.getMarca() + ";" + prod.getCaracteristicas() + ";"
                 + prod.getTamanho() + ";" + prod.getCor() + ";" + Double.toString(prod.getValorEtiqueta()) + ";"
                 + Double.toString(prod.getValorMargem()) + ";" + Double.toString(prod.getPrecoSugerido());
@@ -236,6 +236,8 @@ public class App {
                     resto += linha;
                 if(!informações[0].equals(getUltimoCodigo()))
                     resto += "\n";
+                else
+                    break;
             } 
             else
                 break;

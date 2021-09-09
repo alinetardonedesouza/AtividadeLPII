@@ -1,5 +1,2 @@
-1;null;a;a;a;a;1;1;1.0;2.0;1.0
-2;null;a;a;a;a;1;1;1.0;2.0;1.0
-6;null;a;a;a;a;1;1;1.0;2.0;1.0
-7;null;a;a;a;a;1;1;1.0;2.0;1.0
-8;2021-09-09;a;a;a;a;1;1;1.0;2.0;1.0
+1;2021-09-09;blusa de frio estampa anime;blusa;geek universo muito maneiro;blusa muito maneira com estampa maneira do naturinho;4;4;21.0;42.0;21.0
+2;2021-09-09;blusa;blusa;blusa;uma blusa;4;8;21.0;42.0;21.0

@@ -4,6 +4,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDate;
 
 public class App {
 
@@ -61,6 +62,7 @@ public class App {
 
         prod.setValorMargem(prod.getValorPago());
         prod.setCodigo(getUltimoCodigo());
+        prod.setDataEntrada();
 
         // Escrever no aquivo texto
         setProduto(prod);

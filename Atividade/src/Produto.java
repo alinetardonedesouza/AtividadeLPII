@@ -11,7 +11,7 @@ public class Produto {
 
     private LocalDate dataEntrada;
 	public LocalDate getDataEntrada() { return dataEntrada; }
-	public void setDataEntrada (LocalDate dataEntrada) { dataEntrada = LocalDate.now();}
+	public void setDataEntrada () { dataEntrada = LocalDate.now();}
 
     private String local;
 	public String getLocal() { return local; }

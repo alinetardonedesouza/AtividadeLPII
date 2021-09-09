@@ -4,9 +4,9 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.time.LocalDate;
 
-//teste
+// import java.time.LocalDate;
+
 public class App {
 
     public static void limpaTela() {
@@ -18,45 +18,47 @@ public class App {
     public static void cadastrarProduto() throws IOException {
         Produto prod = new Produto();
 
-        System.out.println("Digite o nome do produto a ser cadastrado");
+        System.out.println("Digite o nome do produto: ");
         prod.setLocal(System.console().readLine().intern());
 
-        System.out.println("Digite o tipo do produto a ser cadastrado");
+        System.out.println("Digite o tipo do produto: ");
         prod.setTipo(System.console().readLine().intern());
 
-        System.out.println("Digite a marca do produto a ser cadastrado");
+        System.out.println("Digite a marca do produto:");
         prod.setMarca(System.console().readLine().intern());
 
-        System.out.println("Digite a caracteristica do produto a ser cadastrado");
+        System.out.println("Digite a caracteristica do produto:");
         prod.setCaracteristicas(System.console().readLine().intern());
 
         String numero;
         do{
-        System.out.println("Digite o tamanho do produto a ser cadastrado");
+        System.out.println("Digite o tamanho do produto:");
+        listaTamanho();
         numero = System.console().readLine().intern();
         }while(!numero.matches("[0-9]*"));
         prod.setTamanho(Integer.parseInt(numero));
 
         do{
-        System.out.println("Digite a cor do produto a ser cadastrado");
+        System.out.println("Digite a cor do produto:");
+        listaCores();
         numero = System.console().readLine().intern();
         }while(!numero.matches("[0-9]*"));
         prod.setCor(Integer.parseInt(numero));
 
         do{
-        System.out.println("Digite o valor da etiqueta do produto a ser cadastrado");
+        System.out.println("Digite o valor da etiqueta do produto:");
         numero = System.console().readLine().intern();
         }while(!numero.matches("[0-9]*"));
         prod.setValorEtiqueta(Double.parseDouble(numero));
 
         do{
-        System.out.println("Digite o preço sugerido do produto a ser cadastrado");
+        System.out.println("Digite o preço sugerido do produto:");
         numero = System.console().readLine().intern();
         }while(!numero.matches("[0-9]*"));
         prod.setPrecoSugerido(Double.parseDouble(numero));
 
         do{
-        System.out.println("Digite o valor pago do produto a ser cadastrado");
+        System.out.println("Digite o valor pago do produto:");
         numero = System.console().readLine().intern();
         }while(!numero.matches("[0-9]*"));
         prod.setValorPago(Double.parseDouble(numero));
@@ -134,7 +136,7 @@ public class App {
                 break;
 
             default:
-                System.out.println("Digite apenas valores validos");
+                System.out.println("Digite apenas valores válidos");
         }
     }
 
@@ -179,19 +181,28 @@ public class App {
         String path = "Registros.txt";
         BufferedReader buffRead = new BufferedReader(new FileReader(path));
         String linha = "";
-        while (true) {
-            linha = buffRead.readLine();
-            if (linha != null) {
-                var informações = linha.split(";");
-                var registro = "Cod : "+ informações[0]+ " Data de reg  : " + informações[1]+ ", Local : "+ informações[2]+ ", Tipo : " + informações[3]+
-                ", Marca : "+ informações[4]+ ", Caracteristica : " + informações[5]+ ", Tamanho : "+ informações[6]+ ", Cor : " + informações[7] + 
-                ", Valor Etiq : "+ informações[8]+ ", valor Margem : " + informações[9]+ ", Preço sugerido : "+ informações[10];
-                System.out.println(registro);
-            } 
-            else
-                break;
+
+        try {
+            
+            while (true) {
+                linha = buffRead.readLine();
+                if (linha != null) {
+                    var informações = linha.split(";");
+                    var registro = "Cod : "+ informações[0]+ " Data de reg  : " + informações[1]+ ", Local : "+ informações[2]+ ", Tipo : " + informações[3]+
+                    ", Marca : "+ informações[4]+ ", Caracteristica : " + informações[5]+ ", Tamanho : "+ informações[6]+ ", Cor : " + informações[7] + 
+                    ", Valor Etiq : "+ informações[8]+ ", valor Margem : " + informações[9]+ ", Preço sugerido : "+ informações[10];
+                    System.out.println(registro);
+                } 
+                else
+                    break;
+            }
+            buffRead.close();
+
+        } catch (Exception e) {
+            
+              System.out.println("┗( T﹏T )┛ Ocorreu um erro ao listar os produtos: " + e);
+            System.out.println("Digite apenas o código numérico do produto!");
         }
-        buffRead.close();
     }
 
     public static void setProduto(Produto prod) throws IOException {
@@ -236,5 +247,25 @@ public class App {
         out.close();
         buffRead.close();
         limpaTela();
+    }
+
+    public static void listaCores() throws IOException {
+
+        int cont = 1;
+
+        for (EnumCor cores : EnumCor.values()) {
+            System.out.println(Integer.toString(cont) + "-" + cores);
+            cont++;
+        }
+    }
+
+    public static void listaTamanho() throws IOException {
+
+        int cont = 1;
+
+        for (EnumTamanho tamanhos : EnumTamanho.values()) {
+            System.out.println(Integer.toString(cont) + "-" + tamanhos);
+            cont++;
+        }
     }
 }

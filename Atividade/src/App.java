@@ -1,13 +1,9 @@
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
-import java.io.Writer;
 
 public class App {
 
@@ -58,12 +54,16 @@ public class App {
         listaProd();
     }
 
-    public static void editarProduto() {
-
+    public static void editarProduto() throws IOException {
+        listaProd();
     }
 
-    public static void deletarProduto() {
-
+    public static void deletarProduto() throws IOException {
+        listaProd();
+        System.out.println("");
+        System.out.println("Digite o codigo do produto a ser deletado");
+        String ler = System.console().readLine();
+        deleteProd(ler);
     }
 
     public static int montaMenu() {
@@ -148,9 +148,9 @@ public class App {
                 linha = buffRead.readLine();
             }
             buffRead.close();
-            if (ultimaLinha == null)
+            if (ultimaLinha == "")
                 return "0";
-            return ultimaLinha.split("|")[0];
+            return ultimaLinha.split(";")[0];
         } catch (Exception e) {
             return "0";
         }
@@ -161,14 +161,18 @@ public class App {
         BufferedReader buffRead = new BufferedReader(new FileReader(path));
         String linha = "";
         while (true) {
-            if (linha != null) {
-                System.out.println(linha);
-            } else
-                break;
             linha = buffRead.readLine();
+            if (linha != null) {
+                var informações = linha.split(";");
+                var registro = "Cod : "+ informações[0]+ " Data de reg  : " + informações[1]+ ", Local : "+ informações[2]+ ", Tipo : " + informações[3]+
+                ", Marca : "+ informações[4]+ ", Caracteristica : " + informações[5]+ ", Tamanho : "+ informações[6]+ ", Cor : " + informações[7] + 
+                ", Valor Etiq : "+ informações[8]+ ", valor Margem : " + informações[9]+ ", Preço sugerido : "+ informações[10];
+                System.out.println(registro);
+            } 
+            else
+                break;
         }
         buffRead.close();
-        limpaTela();;
     }
 
     public static void setProduto(Produto prod) throws IOException {
@@ -178,12 +182,40 @@ public class App {
         BufferedWriter bw = new BufferedWriter(fw);
         PrintWriter out = new PrintWriter(bw);
         // cria o arquivo txt separando as informações do produto por "|"
-        String produtoString = Integer.toHexString(prod.getCodigo()) + "|" + prod.getDataEntrada() + "|"
-                + prod.getLocal() + "|" + prod.getTipo() + "|" + prod.getMarca() + "|" + prod.getCaracteristicas() + "|"
-                + prod.getTamanho() + "|" + prod.getCor() + "|" + Double.toString(prod.getValorEtiqueta()) + "|"
-                + Double.toString(prod.getValorMargem()) + "|" + Double.toString(prod.getPrecoSugerido());
+        String produtoString = Integer.toHexString(prod.getCodigo()) + ";" + prod.getDataEntrada() + ";"
+                + prod.getLocal() + ";" + prod.getTipo() + ";" + prod.getMarca() + ";" + prod.getCaracteristicas() + ";"
+                + prod.getTamanho() + ";" + prod.getCor() + ";" + Double.toString(prod.getValorEtiqueta()) + ";"
+                + Double.toString(prod.getValorMargem()) + ";" + Double.toString(prod.getPrecoSugerido());
 
                 out.println(produtoString);
                 out.close();
+    }
+
+    public static void deleteProd(String codigo) throws IOException {
+        String path = "Registros.txt";
+        BufferedReader buffRead = new BufferedReader(new FileReader(path));
+        String linha = "";
+        String resto="";
+        while (true) {
+            linha = buffRead.readLine();
+            if (linha != null) {
+                var informações = linha.split(";");
+                if(informações[0].equals(codigo.intern()))
+                    continue;
+                else
+                    resto += linha;
+                if(!informações[0].equals(getUltimoCodigo()))
+                    resto += "\n";
+            } 
+            else
+                break;
+        }
+        FileWriter fw = new FileWriter(path);
+        BufferedWriter bw = new BufferedWriter(fw);
+        PrintWriter out = new PrintWriter(bw);
+        out.println(resto);
+        out.close();
+        buffRead.close();
+        limpaTela();
     }
 }

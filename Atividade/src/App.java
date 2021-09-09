@@ -28,20 +28,36 @@ public class App {
         System.out.println("Digite a caracteristica do produto a ser cadastrado");
         prod.setCaracteristicas(System.console().readLine().intern());
 
+        String numero;
+        do{
         System.out.println("Digite o tamanho do produto a ser cadastrado");
-        prod.setTamanho(Integer.parseInt(System.console().readLine().intern()));
+        numero = System.console().readLine().intern();
+        }while(!numero.matches("[0-9]*"));
+        prod.setTamanho(Integer.parseInt(numero));
 
+        do{
         System.out.println("Digite a cor do produto a ser cadastrado");
-        prod.setCor(Integer.parseInt(System.console().readLine().intern()));
+        numero = System.console().readLine().intern();
+        }while(!numero.matches("[0-9]*"));
+        prod.setCor(Integer.parseInt(numero));
 
+        do{
         System.out.println("Digite o valor da etiqueta do produto a ser cadastrado");
-        prod.setValorEtiqueta(Double.parseDouble(System.console().readLine().intern()));
+        numero = System.console().readLine().intern();
+        }while(!numero.matches("[0-9]*"));
+        prod.setValorEtiqueta(Double.parseDouble(numero));
 
+        do{
         System.out.println("Digite o preço sugerido do produto a ser cadastrado");
-        prod.setPrecoSugerido(Double.parseDouble(System.console().readLine().intern()));
+        numero = System.console().readLine().intern();
+        }while(!numero.matches("[0-9]*"));
+        prod.setPrecoSugerido(Double.parseDouble(numero));
 
+        do{
         System.out.println("Digite o valor pago do produto a ser cadastrado");
-        prod.setValorPago(Double.parseDouble(System.console().readLine().intern()));
+        numero = System.console().readLine().intern();
+        }while(!numero.matches("[0-9]*"));
+        prod.setValorPago(Double.parseDouble(numero));
 
         prod.setValorMargem(prod.getValorPago());
         prod.setCodigo(getUltimoCodigo());

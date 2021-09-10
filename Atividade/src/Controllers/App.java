@@ -1,9 +1,15 @@
+package Controllers;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+
+import Models.EnumCor;
+import Models.EnumTamanho;
+import Models.Produto;
 
 // import java.time.LocalDate;
 

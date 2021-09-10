@@ -165,7 +165,7 @@ public class App {
             String linha = "";
             String ultimaLinha = "";
             while (true) {
-                if (linha != null) {
+                if (linha != null && linha !="") {
                     ultimaLinha = linha;
 
                 } else
@@ -190,7 +190,7 @@ public class App {
 
             while (true) {
                 linha = buffRead.readLine();
-                if (linha.length() != 0) {
+                if (linha != null && linha !="") {
                     var informações = linha.split(";");
                     var registro = "Cod : " + informações[0] + " Data de reg  : " + informações[1] + ", Local : "
                             + informações[2] + ", Tipo : " + informações[3] + ", Marca : " + informações[4]
@@ -230,25 +230,25 @@ public class App {
         String path = "Registros.txt";
         BufferedReader buffRead = new BufferedReader(new FileReader(path));
         String linha = "";
+        var linhas =0;
         String resto = "";
         while (true) {
             linha = buffRead.readLine();
-            if (linha != null) {
+            if (linha != null && linha !="") {
                 var informações = linha.split(";");
                 if (informações[0].equals(codigo.intern()))
                     continue;
 
                 else
-                    if(linha !="")
-                        resto += linha;
-
-                if (!informações[0].equals(getUltimoCodigo()))
-                    resto += "\n";
-
-                else
-                    break;
-            } else
-                break;
+                {
+                    if(linhas != 0)
+                        resto += "\n";
+                    resto +=  linha ;
+                }
+                    linhas++;
+            }
+            else 
+                break; 
         }
 
         String resposta = "";

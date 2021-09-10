@@ -94,7 +94,6 @@ public class Controller {
         deleteProd(ler);
     }
 
-
     public static void selecionaOpcao(int opcao) throws IOException {
 
         switch (opcao) {
@@ -143,17 +142,20 @@ public class Controller {
 
     public static String getUltimoCodigo() throws IOException {
         String path = "Registros.txt";
+
         try {
             BufferedReader buffRead = new BufferedReader(new FileReader(path));
             String linha = "";
             String ultimaLinha = "";
             while (true) {
-                if (linha != null && linha !="") {
+                
+                linha = buffRead.readLine();
+
+                if (linha != null && linha != "") {
                     ultimaLinha = linha;
 
                 } else
                     break;
-                linha = buffRead.readLine();
             }
             buffRead.close();
             if (ultimaLinha == "")
@@ -173,13 +175,13 @@ public class Controller {
 
             while (true) {
                 linha = buffRead.readLine();
-                if (linha != null && linha !="") {
-                    var informações = linha.split(";");
-                    var registro = "Cod : " + informações[0] + " Data de reg  : " + informações[1] + ", Local : "
-                            + informações[2] + ", Tipo : " + informações[3] + ", Marca : " + informações[4]
-                            + ", Caracteristica : " + informações[5] + ", Tamanho : " + informações[6] + ", Cor : "
-                            + informações[7] + ", Valor Etiq : " + informações[8] + ", valor Margem : " + informações[9]
-                            + ", Preço sugerido : " + informações[10] + ", Quantidade : " + informações[11];
+                if (linha != null && linha != "") {
+                    var informacoes = linha.split(";");
+                    var registro = "Cod : " + informacoes[0] + " Data de reg  : " + informacoes[1] + ", Local : "
+                            + informacoes[2] + ", Tipo : " + informacoes[3] + ", Marca : " + informacoes[4]
+                            + ", Caracteristica : " + informacoes[5] + ", Tamanho : " + informacoes[6] + ", Cor : "
+                            + informacoes[7] + ", Valor Etiq : " + informacoes[8] + ", valor Margem : " + informacoes[9]
+                            + ", Preço sugerido : " + informacoes[10] + ", Quantidade : " + informacoes[11];
                     System.out.println(registro);
                 } else
                     break;
@@ -189,7 +191,6 @@ public class Controller {
         } catch (Exception e) {
 
             System.out.println("┗( T﹏T )┛ Ocorreu um erro ao listar os produtos: " + e);
-            System.out.println("Digite apenas o código numérico do produto!");
         }
     }
 
@@ -213,25 +214,23 @@ public class Controller {
         String path = "Registros.txt";
         BufferedReader buffRead = new BufferedReader(new FileReader(path));
         String linha = "";
-        var linhas =0;
+        var linhas = 0;
         String resto = "";
         while (true) {
             linha = buffRead.readLine();
-            if (linha != null && linha !="") {
+            if (linha != null && linha != "") {
                 var informações = linha.split(";");
                 if (informações[0].equals(codigo.intern()))
                     continue;
 
-                else
-                {
-                    if(linhas != 0)
+                else {
+                    if (linhas != 0)
                         resto += "\n";
-                    resto +=  linha ;
+                    resto += linha;
                 }
-                    linhas++;
-            }
-            else 
-                break; 
+                linhas++;
+            } else
+                break;
         }
 
         String resposta = "";
@@ -246,7 +245,7 @@ public class Controller {
                 out.println(resto);
             }
         } while (resposta.intern() != "y" && resposta.intern() != "n");
-        
+
         out.close();
         buffRead.close();
         limpaTela();
@@ -258,48 +257,42 @@ public class Controller {
         String linha = "";
         String registros = "";
         String resposta = "";
-        String novoValor ="";
+        String novoValor = "";
         while (true) {
             linha = buffRead.readLine();
             if (linha != null) {
                 var informações = linha.split(";");
-                if (informações[0].equals(codigo.intern()))
-                    {
-                        do{
-                        System.out.println("Digite o numero da caracteristica que deseja editar:" 
-                        + "\n1) local" 
-                        + "\n2) tipo" 
-                        + "\n3) marca"
-                        + "\n4) caracteristicas" 
-                        + "\n5) tamanho"
-                        + "\n6) cor" 
-                        + "\n7) valor Etiqueta"
-                        + "\n8) quantidade em estoque");
+                if (informações[0].equals(codigo.intern())) {
+                    do {
+                        System.out.println("Digite o numero da caracteristica que deseja editar:" + "\n1) local"
+                                + "\n2) tipo" + "\n3) marca" + "\n4) caracteristicas" + "\n5) tamanho" + "\n6) cor"
+                                + "\n7) valor Etiqueta" + "\n8) quantidade em estoque");
                         resposta = System.console().readLine();
                         limpaTela();
-                        } while (!resposta.matches("[0-8]"));
+                    } while (!resposta.matches("[0-8]"));
 
-                        var propiedade = Integer.parseInt(resposta.intern()) + 1;
+                    var propriedade = Integer.parseInt(resposta.intern()) + 1;
 
-                        do{
-                        System.out.println("Digite o novo valor para propiedade");
+                    do {
+                        System.out.println("Digite o novo valor para propriedade");
                         novoValor = System.console().readLine();
                         limpaTela();
-                        } while ((!novoValor.matches("[0-6]") && propiedade==6) || (!novoValor.matches("[0-9]") && propiedade==7) || (!novoValor.matches("[0-9]*") && propiedade==8) || (!novoValor.matches("[0-9]*") && propiedade==9));
+                    } while ((!novoValor.matches("[0-6]") && propriedade == 6)
+                            || (!novoValor.matches("[0-9]") && propriedade == 7)
+                            || (!novoValor.matches("[0-9]*") && propriedade == 8)
+                            || (!novoValor.matches("[0-9]*") && propriedade == 9));
 
-                        if(propiedade ==9)
-                            informações[11] = novoValor;
-                        else
-                            informações[propiedade] = novoValor;
-                        
-                        String alterado = "";
-                        for(String valor : informações)
-                        {
-                            alterado+=valor + ";";
-                        }
-                        registros+=alterado;
+                    if (propriedade == 9)
+                        informações[11] = novoValor;
+                    else
+                        informações[propriedade] = novoValor;
+
+                    String alterado = "";
+                    for (String valor : informações) {
+                        alterado += valor + ";";
                     }
-                else
+                    registros += alterado;
+                } else
                     registros += linha;
                 if (!informações[0].equals(getUltimoCodigo()))
                     registros += "\n";

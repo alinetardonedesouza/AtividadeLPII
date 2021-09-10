@@ -11,9 +11,10 @@ import Models.EnumCor;
 import Models.EnumTamanho;
 import Models.Produto;
 
-// import java.time.LocalDate;
+import static Views.View.montaMenu;
+import static Views.View.listaProdutos;
 
-public class App {
+public class Controller {
 
     public static void limpaTela() {
 
@@ -77,10 +78,6 @@ public class App {
         setProduto(prod);
     }
 
-    public static void listaProdutos() throws IOException {
-        listaProd();
-    }
-
     public static void editarProduto() throws IOException {
         listaProd();
         System.out.println("");
@@ -97,26 +94,6 @@ public class App {
         deleteProd(ler);
     }
 
-    public static int montaMenu() {
-
-        try {
-
-            System.out.println("O que deseja fazer?");
-            System.out.println("Digite:" + "\n1) Cadastrar produto" + "\n2) Ver produto" + "\n3) Editar produto"
-                    + "\n4) Deletar produto" + "\n5) Sair");
-
-            String ler = System.console().readLine();
-
-            return Integer.parseInt(ler.intern());
-
-        } catch (Exception e) {
-
-            System.out.println("┗( T﹏T )┛ Ocorreu um erro ao exibir o menu: " + e);
-            System.out.println("Digite apenas números!");
-            return 5;
-        }
-
-    }
 
     public static void selecionaOpcao(int opcao) throws IOException {
 
